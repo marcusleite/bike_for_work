@@ -11,6 +11,8 @@ const geo = require('./geo');
 //TODO: Double check my work Lat/Long coordinates.
 //TODO: Count arrivals and departures.
 //TODO: Oauth login
+//TODO: async/await
+//TODO: koa version
 
 // Config
 const str_activitiesFolder = './activities';
