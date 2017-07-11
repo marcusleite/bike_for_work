@@ -6,6 +6,7 @@ const fs = require('fs');
 function getPage(str_folderName, num_page, resolve, reject) {
     strava.athlete.listActivities({ 'page': num_page }, function (err, payload, limits) {
         if (!err) {
+            // Teste
             if (JSON.stringify(payload) == '[]') {
                 resolve(num_page);
             } else {
