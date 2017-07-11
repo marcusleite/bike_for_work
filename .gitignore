@@ -1,0 +1,7 @@
+# Extensions #
+*.zip
+
+# Folders #
+atividades
+node_modules
+data
