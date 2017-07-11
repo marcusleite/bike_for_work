@@ -2,11 +2,10 @@
 
 const strava = require('strava-v3');
 
-// Script para rodar suas credenciais
+// Script to test Strava API credentials.
 strava.athlete.get({}, function (err, payload, limits) {
     if (!err) {
-        //console.log(payload);
-        console.log('Credenciais OK');
+        console.log('Credentials OK!');
     }
     else {
         console.log(err);

@@ -1,66 +1,52 @@
 'use strict'
 
 const fs = require('fs');
-const download = require('./baixa_atividades');
-const carga = require('./carrega_atividades');
+const getActivities = require('./activities_get');
+const loadActivities = require('./activities_load');
 const geo = require('./geo');
 
-//TODO: Buscar atividades sem limitar manualmente as páginas
-//TODO: Carregar atividades sem limitar manualmente as páginas
-//TODO: Fazer o programa rodar sequencialmente de uma só vez de maneira(Promises?)
-//TODO: Identificar lançamentos manuais de atividades
-//TODO: Criar arquivo de configuração
-//TODO: Verificar coordenadas da Prodest
-//TODO: Colocar no versionamento
-//TODO: Logar com Oauth
-//TODO: Separar idas, vindas e quando veio no mesmo dia
+//TODO: Identify manually added activities.
+//TODO: Identify activities imported from other services(i.e.: Endomondo).
+//TODO: Load configuration from a file.
+//TODO: Double check my work Lat/Long coordinates.
+//TODO: Count arrivals and departures.
+//TODO: Oauth login
 
 // Config
-const pastaAtividades = './atividades';
+const str_activitiesFolder = './activities';
 
-var viagens = 0;
-var atividades = [];
+var num_trips = 0;
+var arr_activities = [];
 
-// Cria o diretório de atividades, se não existir
-if (!fs.existsSync(pastaAtividades)) {
-    fs.mkdirSync(pastaAtividades);
+// Creates the directory to save the actvities, if it doesn't exist.
+if (!fs.existsSync(str_activitiesFolder)) {
+    fs.mkdirSync(str_activitiesFolder);
 }
-console.log('0');
-var prom_carga = new Promise(
-    (resolve, reject) => {
-        try{
-            if(download.baixarAtividades(pastaAtividades)){
-                console.log('0.5');
-                resolve(true);
-            }else{
-                console.log('1');
-                reject('Erro no download de atividades');
-            }
-        } catch (error) {
-            console.log('2');
-            reject(error);
-        }
-    })
-    .then(
-        // Executa quando a carga termina com sucesso
+
+getActivities.getActivities(str_activitiesFolder, 1)
+    .then(        
         () => {
-            atividades = carga.carregaAtividades(pastaAtividades);
-            atividades.forEach(function (element) {
-                if (element.type == 'Ride') {
-                    if (geo.eh_trabalho(element)) {
-                        viagens++;
+            // Runs when the downloads finishes sucessfully.            
+            arr_activities = loadActivities.loadActivities(str_activitiesFolder, 20);
+            console.log("1");
+            arr_activities.forEach(function (JSON_activity) {                
+                if (JSON_activity.type === 'Ride') {
+                    if (geo.its_a_trip_to_work(JSON_activity)) {
+                        num_trips++;
                     } else {
-                        console.log("Atividade que não foi para o trabalho: id " + element.id + " Coordenadas: " + element.start_latlng + " Nome: " + element.name);
+                        console.log(
+                            "Activity that wasn't to work: id " + JSON_activity.id 
+                            //+ " Coords: " + JSON_activity.start_latlng 
+                            + " Start date Local: " + JSON_activity.start_date_local
+                            + " Activity Name: " + JSON_activity.name                            
+                        );
                     }
                 }
             });
-            console.log("Total de viagens para o trabalho: " + viagens / 2);
+            console.log("Total trips to work: " + num_trips / 2);
         }
-    ).catch(
-        // Executa em caso de erro na carga
+    ).catch(        
         (err) => {
-            console.log('3 CATCH');
             console.log(err);
         }
     );
-console.log('4 END');

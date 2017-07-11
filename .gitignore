@@ -2,6 +2,6 @@
 *.zip
 
 # Folders #
-atividades
+activities
 node_modules
 data
