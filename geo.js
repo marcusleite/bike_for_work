@@ -17,6 +17,7 @@ function its_close_to_prodest(lat_long) {
 }
 
 module.exports.its_a_trip_to_work = (JSON_activity) => {
+    // Check if the activity begins near my work
     if (its_close_to_prodest(JSON_activity.start_latlng)) {
         return true;
     } else {

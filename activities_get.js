@@ -1,7 +1,10 @@
 'use strict';
 
-const strava = require('strava-v3');
+// Standard libraries
 const fs = require('fs');
+
+// Third parties
+const strava = require('strava-v3');
 
 function getPage(str_folderName, num_page, resolve, reject) {
     strava.athlete.listActivities({ 'page': num_page }, function (err, payload, limits) {

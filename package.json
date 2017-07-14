@@ -1,10 +1,8 @@
 {
   "name": "bike_to_work",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Script to count how many times I went to work by bike based on my Strava.",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,12 +11,18 @@
     "url": "git+https://github.com/marcusleite/bike_to_work.git"
   },
   "keywords": [
-    "strava", "bike"
+    "strava",
+    "bike",
+    "node"
   ],
   "author": "Marcus Leite",
-  "license": "(MIT)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/marcusleite/bike_to_work/issues"
   },
-  "homepage": "https://github.com/marcusleite/bike_to_work#readme"
+  "homepage": "https://github.com/marcusleite/bike_to_work#readme",
+  "dependencies": {
+    "config.json": "0.0.4",
+    "strava-v3": "^1.14.0"
+  }
 }

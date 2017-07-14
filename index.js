@@ -1,36 +1,39 @@
 'use strict'
 
+// Standard libraries
 const fs = require('fs');
+
+// App libraries
 const getActivities = require('./activities_get');
 const loadActivities = require('./activities_load');
 const geo = require('./geo');
 
-//TODO: Identify manually added activities.
-//TODO: Identify activities imported from other services(i.e.: Endomondo).
-//TODO: Load configuration from a file.
-//TODO: Double check my work Lat/Long coordinates.
-//TODO: Count arrivals and departures.
-//TODO: Oauth login
-//TODO: async/await
-//TODO: koa version
+// Third parties
+const config = require('config.json')('./config.json');
+
+/* TODO LIST
+    * Decide what to put in the configuration file.
+    * Count arrivals and departures.
+    * Oauth login
+    * Pick workplace from Google Maps widget or similar
+    * async/await version
+*/
 
 // Config
-const str_activitiesFolder = './activities';
-
+//const str_activitiesFolder = config.activities_folder;
 var num_trips = 0;
 var arr_activities = [];
 
 // Creates the directory to save the actvities, if it doesn't exist.
-if (!fs.existsSync(str_activitiesFolder)) {
-    fs.mkdirSync(str_activitiesFolder);
+if (!fs.existsSync(config.activities_folder)) {
+    fs.mkdirSync(config.activities_folder);
 }
 
-getActivities.getActivities(str_activitiesFolder, 1)
+getActivities.getActivities(config.activities_folder, 1)
     .then(        
         () => {
             // Runs when the downloads finishes sucessfully.            
-            arr_activities = loadActivities.loadActivities(str_activitiesFolder, 20);
-            console.log("1");
+            arr_activities = loadActivities.loadActivities(config.activities_folder, 20);
             arr_activities.forEach(function (JSON_activity) {                
                 if (JSON_activity.type === 'Ride') {
                     if (geo.its_a_trip_to_work(JSON_activity)) {

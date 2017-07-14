@@ -1,5 +1,6 @@
 'use strict';
 
+// Standard libraries
 const fs = require('fs');
 
 function loadPage(str_folderName, num_page = 1) {
