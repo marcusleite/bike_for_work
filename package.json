@@ -12,8 +12,7 @@
   },
   "keywords": [
     "strava",
-    "bike",
-    "node"
+    "bike"
   ],
   "author": "Marcus Leite",
   "license": "MIT",
@@ -22,7 +21,6 @@
   },
   "homepage": "https://github.com/marcusleite/bike_to_work#readme",
   "dependencies": {
-    "config.json": "0.0.4",
     "strava-v3": "^1.14.0"
   }
 }
