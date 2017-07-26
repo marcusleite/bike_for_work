@@ -7,9 +7,8 @@ const fs = require('fs');
 const strava = require('strava-v3');
 
 function getPage(str_folderName, num_page, resolve, reject) {
-    strava.athlete.listActivities({ 'page': num_page }, function (err, payload, limits) {
+    strava.athlete.listActivities({ 'page': num_page }, function (err, payload) {
         if (!err) {
-            // Teste
             if (JSON.stringify(payload) == '[]') {
                 resolve(num_page);
             } else {
@@ -36,4 +35,4 @@ function getActivities(str_folderName, num_page = 1) {
     );
 }
 
-module.exports.getActivities = getActivities;
+module.exports = getActivities;
