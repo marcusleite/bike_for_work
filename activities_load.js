@@ -3,11 +3,10 @@
 // Standard libraries
 const fs = require('fs');
 
-function loadPage(str_folderName, num_page = 1) {
+function loadPage(activities_file) {
     let json_activities;
     try {
-        json_activities = JSON.parse(fs.readFileSync(
-            str_folderName + '/activities_page_' + num_page + '.json'));
+        json_activities = JSON.parse(fs.readFileSync(activities_file));
     } catch (error) {
         if (error.code === 'ENOENT') {
             console.log('File not found!');
@@ -15,19 +14,21 @@ function loadPage(str_folderName, num_page = 1) {
             throw error;
         }
     }
-    return (json_activities);
+    return(json_activities);
 }
 
 function loadActivities(str_activitiesFolder) {
-    let arr_activities = [];
-    let num_page = 1;
-    while (fs.existsSync(str_activitiesFolder + '/activities_page_' + num_page + '.json')) {
-        num_page++;
+    let page_number = 1;
+    let activities_file = str_activitiesFolder + '/activities_page_' + page_number + '.json';
+    let arr_activities = [];    
+    while (fs.existsSync(activities_file)) {        
+        loadPage(activities_file, page_number).forEach(
+            (x) => arr_activities.push(x)
+        );
+        page_number++;
+        activities_file = str_activitiesFolder + '/activities_page_' + page_number + '.json';
     }
-    for (var i = 1; i < num_page - 1; i++) {
-        loadPage(str_activitiesFolder, i).forEach((x) => arr_activities.push(x))
-    }
-    return (arr_activities);
+    return(arr_activities);
 }
 
 module.exports = loadActivities;
