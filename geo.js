@@ -6,8 +6,8 @@ function is_close_to_prodest(lat_long) {
     if (typeof lat_long === 'undefined' || lat_long === null) {
         return false;
     }
-    let lat = parseFloat(lat_long[0]);
-    let long = parseFloat(lat_long[1]);
+    const lat = parseFloat(lat_long[0]);
+    const long = parseFloat(lat_long[1]);
     // Prodest: -20.313524, -40.296553
     if ((lat >= -20.3) && (lat <= -20.2)) {
         if ((long >= -40.3) && (long <= -40.2)) {
@@ -17,9 +17,9 @@ function is_close_to_prodest(lat_long) {
     return false;
 }
 
-function is_a_trip_to_work (JSON_activity) {
+function is_a_trip_to_work (activity) {
     // Check if the activity begins near my work
-    if (is_close_to_prodest(JSON_activity.start_latlng)) {
+    if (is_close_to_prodest(activity.start_latlng)) {
         return true;
     } else {
         return false;
