@@ -1,24 +1,18 @@
 {
+    "extends": "eslint:recommended",
     "env": {
-        "browser": true,
-        "commonjs": true,
         "es6": true,
         "node": true
     },
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
         "sourceType": "module"
     },
     "rules": {
-        "no-const-assign": "warn",
-        "no-this-before-super": "warn",
-        "no-undef": "warn",
+        "no-confusing-arrow": "warn",
         "no-unreachable": "warn",
-        "no-unused-vars": "warn",
-        "constructor-super": "warn",
-        "valid-typeof": "warn",
-        "max-len": ["warn", 80]
+        "no-var": "warn",
+        "max-len": ["warn", 80],
+        "no-console": "off",
+        "no-extra-semi": "off"
     }
 }
