@@ -7,16 +7,21 @@ const fs = require('fs');
 const strava = require('strava-v3');
 
 function getPage(str_folderName, num_page, resolve, reject) {
-    strava.athlete.listActivities({ 'page': num_page }, function (err, payload) {
+    strava.athlete.listActivities({ 'page': num_page }, (err, payload) => {
         if (!err) {
             if (JSON.stringify(payload) == '[]') {
                 resolve(num_page);
             } else {
-                fs.writeFileSync(str_folderName + '/activities_page_' + num_page.toString() + '.json', JSON.stringify(payload), (err) => {
-                    if (err) {
-                        reject(err);
+                fs.writeFileSync(
+                    str_folderName
+                    + '/activities_page_'
+                    + num_page
+                    + '.json', JSON.stringify(payload), (err) => {
+                        if (err) {
+                            reject(err);
+                        }
                     }
-                });
+                );
                 getPage(str_folderName, num_page + 1, resolve, reject);
             }
         }
