@@ -1,5 +1,6 @@
 # Extensions #
 *.zip
+*.env
 
 # Folders #
 activities
