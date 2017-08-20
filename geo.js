@@ -17,7 +17,7 @@ function is_close_to_prodest(lat_long) {
     return false;
 }
 
-function is_a_trip_to_work (activity) {
+function is_a_trip_to_work(activity) {
     // Check if the activity begins near my work
     if (is_close_to_prodest(activity.start_latlng)) {
         return true;

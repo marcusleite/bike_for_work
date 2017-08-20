@@ -14,21 +14,21 @@ function loadPage(activities_file) {
             throw error;
         }
     }
-    return(json_activities);
+    return (json_activities);
 }
 
 function loadActivities(str_activitiesFolder) {
     let page_number = 1;
     let activities_file = str_activitiesFolder + '/activities_page_' + page_number + '.json';
-    let arr_activities = [];    
-    while (fs.existsSync(activities_file)) {        
+    let arr_activities = [];
+    while (fs.existsSync(activities_file)) {
         loadPage(activities_file, page_number).forEach(
             (x) => arr_activities.push(x)
         );
         page_number++;
         activities_file = str_activitiesFolder + '/activities_page_' + page_number + '.json';
     }
-    return(arr_activities);
+    return (arr_activities);
 }
 
 module.exports = loadActivities;
